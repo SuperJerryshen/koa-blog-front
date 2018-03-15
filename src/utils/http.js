@@ -6,7 +6,7 @@ import { TOKEN_KEY } from './const';
 // 设置默认 host
 axios.defaults.baseURL = dev
   ? 'http://localhost:8080/api'
-  : 'http://me.jerryshen.cn/api';
+  : 'http://api.jerryshen.cn/blog/api';
 
 // 设置请求验证 Authorization
 const token = store.get(TOKEN_KEY);
