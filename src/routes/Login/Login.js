@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Form, Segment, Header, Icon } from 'semantic-ui-react';
 
-import store from '../../utils/store';
-import http from '../../utils/http';
-import { TOKEN_KEY } from '../../utils/const';
+import { store, http } from '../../utils';
+import { TOKEN_KEY, USER_ID } from '../../utils/const';
 
 class Login extends PureComponent {
   constructor(props) {
@@ -35,6 +34,7 @@ class Login extends PureComponent {
         const { data, success } = res.data;
         if (success) {
           store.set(TOKEN_KEY, data.token);
+          store.set(USER_ID, data.id);
           location.pathname = '/';
         }
       },

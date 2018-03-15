@@ -7,6 +7,7 @@ import PostDetailRoute from './PostDetail';
 import LoginRoute from './Login';
 import MeRoute from './Me';
 import NewPostRoute from './NewPost';
+import EditPostRoute from './EditPost';
 
 const Routes = () => (
   <Switch>
@@ -16,6 +17,7 @@ const Routes = () => (
     <Route component={LoginRoute} path="/login" />
     <Route component={MeRoute} path="/me" />
     <Route component={NewPostRoute} path="/newpost" />
+    <Route component={EditPostRoute} path="/edit/:id" />
   </Switch>
 );
 

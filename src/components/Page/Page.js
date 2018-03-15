@@ -5,7 +5,8 @@ class Page extends Component {
     document.title = this.props.title;
   }
   render() {
-    return <div>{this.props.children}</div>;
+    const params = this.props;
+    return <div {...params}>{this.props.children}</div>;
   }
 }
 

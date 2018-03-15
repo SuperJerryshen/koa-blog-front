@@ -4,7 +4,7 @@ import Routes from './routes';
 import http from './utils/http';
 import 'styling/semantic.less';
 
-import { Navbar } from 'components';
+import { Navbar, Page } from 'components';
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class App extends Component {
       leftItems: [
         {
           as: Link,
-          content: 'Home',
+          content: '主页',
           to: '/',
           icon: 'home',
           key: 'home',
@@ -37,7 +37,7 @@ class App extends Component {
         },
         {
           as: Link,
-          content: 'Login',
+          content: '登录',
           icon: 'user circle',
           to: '/login',
           key: 'login',
@@ -82,14 +82,15 @@ class App extends Component {
     return (
       <Router>
         <Navbar leftItems={leftItems} rightItems={rightItems}>
-          <div
+          <Page
+            title="经纬天地"
             style={{
               paddingTop: '16px',
               minHeight: document.body.offsetHeight - 61 + 'px',
             }}
           >
             <Routes />
-          </div>
+          </Page>
         </Navbar>
       </Router>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Segment, Grid, Item, Loader } from 'semantic-ui-react';
+import { Segment, Grid, Item, Loader, Icon, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { map } from 'lodash';
 import http from '../../utils/http';
@@ -25,7 +25,7 @@ class Home extends Component {
 
   render() {
     return (
-      <Segment loading={this.state.loading}>
+      <Segment loading={this.state.loading} basic>
         <Grid>
           <Grid.Column computer={16} mobile={16}>
             <Item.Group divided link>
@@ -33,7 +33,25 @@ class Home extends Component {
                 <Item key={index} as={Link} to={`/post/${item._id}`}>
                   <Item.Content>
                     <Item.Header>{item.title}</Item.Header>
-                    <Item.Meta>{item.author.nickname}</Item.Meta>
+                    <div
+                      style={{
+                        marginTop: '6px',
+                      }}
+                    >
+                      <Label image>
+                        <img src={item.author.avatar} />
+                        {item.author.nickname}
+                      </Label>
+                      <Label>
+                        <Icon name="like" /> {item.stared_user.length}
+                      </Label>
+                      <Label>
+                        <Icon name="eye" /> {item.viewed_times}
+                      </Label>
+                      <Label>
+                        <Icon name="comment" /> {item.comment.length}
+                      </Label>
+                    </div>
                     <Item.Description>{item.content}</Item.Description>
                     <Item.Extra>{item.create_time}</Item.Extra>
                   </Item.Content>
