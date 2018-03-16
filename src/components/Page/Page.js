@@ -6,7 +6,16 @@ class Page extends Component {
   }
   render() {
     const params = this.props;
-    return <div {...params}>{this.props.children}</div>;
+    return (
+      <div
+        {...params}
+        style={{
+          padding: '16px 0',
+        }}
+      >
+        {this.props.children}
+      </div>
+    );
   }
 }
 

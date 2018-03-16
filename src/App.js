@@ -5,7 +5,7 @@ import { http, store } from './utils';
 import { TOKEN_KEY, USER_ID } from './utils/const';
 import 'styling/semantic.less';
 
-import { Navbar, Page } from 'components';
+import { Navbar, Page, Footer } from 'components';
 
 class App extends Component {
   constructor(props) {
@@ -93,6 +93,7 @@ class App extends Component {
             }}
           >
             <Routes />
+            <Footer />
           </Page>
         </Navbar>
       </Router>

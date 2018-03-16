@@ -1,4 +1,6 @@
 import React, { PureComponent } from 'react';
+import marked from 'marked';
+import hl from 'highlight.js';
 import {
   Segment,
   Header,
@@ -11,6 +13,7 @@ import {
   Modal,
   Loader,
 } from 'semantic-ui-react';
+
 import { Page } from '../../components';
 import { http, store } from '../../utils';
 import { USER_ID } from '../../utils/const';
@@ -84,12 +87,7 @@ class PostDetail extends PureComponent {
   renderDeleteBtn = token => {
     if (store.get(USER_ID) === token) {
       return (
-        <Button
-          inverted
-          onClick={this.handleModalOpen}
-          color="red"
-          floated="right"
-        >
+        <Button inverted onClick={this.handleModalOpen} color="red">
           <Icon name="trash" /> 删除文章
         </Button>
       );
@@ -134,7 +132,7 @@ class PostDetail extends PureComponent {
             as="h2"
             content={title}
             style={{
-              paddingRight: 70,
+              paddingRight: store.get(USER_ID) === author._id ? 76 : 0,
             }}
           />
           {this.renderEditBtn(author._id)}
@@ -164,7 +162,18 @@ class PostDetail extends PureComponent {
             </Feed.Event>
           </Feed>
           <Divider />
-          <div>{content}</div>
+          <div
+            className="markdown-body"
+            dangerouslySetInnerHTML={{
+              __html: marked(content, {
+                gfm: true,
+                tables: true,
+                highlight(code) {
+                  return hl.highlightAuto(code).value;
+                },
+              }),
+            }}
+          />
           <Divider />
           {this.renderDeleteBtn(author._id)}
           <Modal size="mini" open={open} onClose={this.handleModalClose}>
