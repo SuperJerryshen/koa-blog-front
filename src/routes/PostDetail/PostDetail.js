@@ -8,10 +8,11 @@ import {
   Image,
   Icon,
   Button,
+  Modal,
+  Loader,
 } from 'semantic-ui-react';
 import { Page } from '../../components';
-import http from '../../utils/http';
-import store from '../../utils/store';
+import { http, store } from '../../utils';
 import { USER_ID } from '../../utils/const';
 
 class PostDetail extends PureComponent {
@@ -21,6 +22,7 @@ class PostDetail extends PureComponent {
       data: null,
       loading: false,
       author: null,
+      open: false,
     };
   }
 
@@ -28,6 +30,33 @@ class PostDetail extends PureComponent {
     const { history } = this.props;
     const { data } = this.state;
     history.push(`/edit/${data._id}`);
+  };
+
+  handleModalOpen = () => {
+    this.setState({
+      open: true,
+    });
+  };
+
+  handleModalClose = () => {
+    this.setState({
+      open: false,
+    });
+  };
+
+  handlePostDelete = () => {
+    const { _id } = this.state.data;
+    const { history } = this.props;
+    http
+      .post('/article/delete', {
+        article_id: _id,
+      })
+      .then(res => {
+        const { success } = res.data;
+        if (success) {
+          history.replace('/');
+        }
+      });
   };
 
   renderEditBtn = token => {
@@ -52,6 +81,22 @@ class PostDetail extends PureComponent {
     return null;
   };
 
+  renderDeleteBtn = token => {
+    if (store.get(USER_ID) === token) {
+      return (
+        <Button
+          inverted
+          onClick={this.handleModalOpen}
+          color="red"
+          floated="right"
+        >
+          <Icon name="trash" /> 删除文章
+        </Button>
+      );
+    }
+    return null;
+  };
+
   componentWillMount() {
     const { match } = this.props;
     this.setState({
@@ -68,9 +113,9 @@ class PostDetail extends PureComponent {
   }
 
   render() {
-    const { data } = this.state;
+    const { data, open, loading } = this.state;
     if (!data) {
-      return null;
+      return <Loader active inline="centered" />;
     }
     const {
       title,
@@ -120,6 +165,24 @@ class PostDetail extends PureComponent {
           </Feed>
           <Divider />
           <div>{content}</div>
+          <Divider />
+          {this.renderDeleteBtn(author._id)}
+          <Modal size="mini" open={open} onClose={this.handleModalClose}>
+            <Modal.Header>删除文章</Modal.Header>
+            <Modal.Content>
+              <p>您确定要删除这篇文章吗？</p>
+            </Modal.Content>
+            <Modal.Actions>
+              <Button negative onClick={this.handleModalClose} content="否" />
+              <Button
+                positive
+                icon="checkmark"
+                labelPosition="right"
+                content="是"
+                onClick={this.handlePostDelete}
+              />
+            </Modal.Actions>
+          </Modal>
         </Segment>
       </Page>
     );

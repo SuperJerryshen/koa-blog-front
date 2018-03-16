@@ -6,7 +6,15 @@ class Store {
     return localStorage.setItem(key, val);
   }
   rm(key) {
-    return localStorage.removeItem(key);
+    if (typeof key === 'string') {
+      return localStorage.removeItem(key);
+    } else if (key.constructor === Array) {
+      key.forEach(function(o) {
+        localStorage.removeItem(o);
+      });
+    } else {
+      throw TypeError('param must be array or string.');
+    }
   }
   getAll() {
     return localStorage;

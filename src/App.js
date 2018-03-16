@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link, BrowserRouter as Router } from 'react-router-dom';
 import Routes from './routes';
-import http from './utils/http';
+import { http, store } from './utils';
+import { TOKEN_KEY, USER_ID } from './utils/const';
 import 'styling/semantic.less';
 
 import { Navbar, Page } from 'components';
@@ -73,6 +74,8 @@ class App extends Component {
             },
           ],
         });
+      } else {
+        store.rm([TOKEN_KEY, USER_ID]);
       }
     });
   }

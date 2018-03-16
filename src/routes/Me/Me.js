@@ -7,7 +7,7 @@ import {
   Button,
   Icon,
   Modal,
-  Portal,
+  Item,
 } from 'semantic-ui-react';
 import http from '../../utils/http';
 import store from '../../utils/store';
@@ -58,34 +58,46 @@ class Me extends PureComponent {
         <Header as="h2" textAlign="center">
           <Header.Content content="我的信息" />
         </Header>
-        <Card fluid>
-          <Image src={info.avatar} />
-          <Card.Content>
-            <Card.Header content={info.nickname} />
-            <Card.Meta content={info.email} />
-            <Card.Description content={info.id} />
-          </Card.Content>
+        <Card
+          fluid
+          style={{
+            padding: 16,
+          }}
+        >
+          <Item.Group unstackable>
+            <Item>
+              <Item.Image size="small" src={info.avatar} />
+              <Item.Content>
+                <Item.Header as="a">{info.nickname}</Item.Header>
+                <Item.Meta>{info.email}</Item.Meta>
+                <Item.Extra>他很懒，什么也没留下。</Item.Extra>
+              </Item.Content>
+            </Item>
+          </Item.Group>
         </Card>
-        <Button color="red" icon fluid onClick={this.handleLogout}>
+        <Button color="red" icon fluid onClick={this.handleModalShow}>
           <Icon name="log out" />
           退出登录
         </Button>
 
-        {/*<Modal size="mini" open={show} onClose={this.handleModalHide}>
+        <Modal size="mini" open={show} onClose={this.handleModalHide}>
           <Modal.Header>退出登录</Modal.Header>
           <Modal.Content>
             <p>您确认要退出登录吗？</p>
           </Modal.Content>
           <Modal.Actions>
-            <Button negative>取消</Button>
+            <Button negative onClick={this.handleModalHide}>
+              取消
+            </Button>
             <Button
               positive
               icon="checkmark"
               labelPosition="right"
               content="退出"
+              onClick={this.handleLogout}
             />
           </Modal.Actions>
-    </Modal>*/}
+        </Modal>
       </div>
     );
   }

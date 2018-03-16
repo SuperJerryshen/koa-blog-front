@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { Segment, Grid, Item, Loader, Icon, Label } from 'semantic-ui-react';
+import {
+  Segment,
+  Grid,
+  Item,
+  Loader,
+  Icon,
+  Label,
+  Image,
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { map } from 'lodash';
 import http from '../../utils/http';
@@ -28,20 +36,42 @@ class Home extends Component {
       <Segment loading={this.state.loading} basic>
         <Grid>
           <Grid.Column computer={16} mobile={16}>
-            <Item.Group divided link>
+            <Item.Group divided>
               {map(this.state.data, (item, index) => (
-                <Item key={index} as={Link} to={`/post/${item._id}`}>
+                <Item
+                  key={index}
+                  style={{
+                    position: 'relative',
+                  }}
+                >
                   <Item.Content>
-                    <Item.Header>{item.title}</Item.Header>
                     <div
                       style={{
-                        marginTop: '6px',
+                        position: 'absolute',
+                        bottom: 20,
+                        right: 0,
                       }}
                     >
-                      <Label image>
+                      <Label image size="medium">
                         <img src={item.author.avatar} />
-                        {item.author.nickname}
+                        <span
+                          style={{
+                            maxWidth: 64,
+                            overflow: 'hidden',
+                            display: 'inline-block',
+                          }}
+                        >
+                          {item.author.nickname}
+                        </span>
                       </Label>
+                    </div>
+                    <Item.Header as={Link} to={`/post/${item._id}`}>
+                      {item.title}
+                    </Item.Header>
+                    <Item.Meta>
+                      {new Date(item.created_time).toLocaleDateString()}
+                    </Item.Meta>
+                    <Item.Description>
                       <Label>
                         <Icon name="like" /> {item.stared_user.length}
                       </Label>
@@ -51,8 +81,7 @@ class Home extends Component {
                       <Label>
                         <Icon name="comment" /> {item.comment.length}
                       </Label>
-                    </div>
-                    <Item.Description>{item.content}</Item.Description>
+                    </Item.Description>
                     <Item.Extra>{item.create_time}</Item.Extra>
                   </Item.Content>
                 </Item>

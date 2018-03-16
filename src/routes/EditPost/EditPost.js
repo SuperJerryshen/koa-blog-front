@@ -53,7 +53,6 @@ class EditPost extends PureComponent {
       loading: true,
     });
     http.get(`/article/${id}`).then(res => {
-      console.log(res);
       const { data, success } = res.data;
       const { title, content } = data;
       this.setState({
@@ -92,7 +91,7 @@ class EditPost extends PureComponent {
           <Form.Button
             fluid
             color="green"
-            content="新建文章"
+            content="确认修改"
             onClick={this.handleSubmit}
           />
         </Form>

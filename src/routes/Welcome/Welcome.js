@@ -1,11 +1,24 @@
 import React from 'react';
-import { Button, Grid, Header, List, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Grid,
+  Header,
+  List,
+  Segment,
+  Confirm,
+} from 'semantic-ui-react';
 
 import { CustomMessage, Navbar } from 'components';
 
 const Welcome = () => {
   return (
     <Segment>
+      <Confirm
+        onCancel={() => console.log('cancel')}
+        content="您确认要删除此文章吗？"
+        onConfirm={() => console.log('delete')}
+        open={true}
+      />
       <Header as="h1">你的测试应用</Header>
       <Grid>
         <Grid.Column computer={6} mobile={16}>
@@ -55,7 +68,8 @@ const Welcome = () => {
 
           <Header as="h4">Bundle analyzer and direct imports</Header>
           <p>
-            Semantic UI React非常强大, 但是大多数情况你不需要它所有的模块。实际上，不使用的模块应该通过{' '}
+            Semantic UI React非常强大,
+            但是大多数情况你不需要它所有的模块。实际上，不使用的模块应该通过{' '}
             <a
               href="https://webpack.js.org/guides/tree-shaking/"
               rel="noopener noreferrer"
@@ -63,8 +77,8 @@ const Welcome = () => {
             >
               Tree Shaking
             </a>
-            移除, 但是现在的情况不允许依赖于它。使用者直接import所需的SUIR组件, 但是我们不建议这种方法，
-            因为模块的路径可能会被修改。我们添加了{' '}
+            移除, 但是现在的情况不允许依赖于它。使用者直接import所需的SUIR组件,
+            但是我们不建议这种方法， 因为模块的路径可能会被修改。我们添加了{' '}
             <a
               href="https://www.npmjs.com/package/babel-plugin-direct-import"
               rel="noopener noreferrer"
