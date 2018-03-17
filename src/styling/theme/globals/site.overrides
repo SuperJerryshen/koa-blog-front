@@ -367,32 +367,32 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
   }
 
   h1 {
-    font-size: 32px;
+    font-size: 28px;
     font-weight: 600;
   }
 
   h2 {
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 600;
   }
 
   h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
   }
 
   h4 {
-    font-size: 16px;
-    font-weight: 600;
-  }
-
-  h5 {
     font-size: 14px;
     font-weight: 600;
   }
 
-  h6 {
+  h5 {
     font-size: 12px;
+    font-weight: 600;
+  }
+
+  h6 {
+    font-size: 10px;
     font-weight: 600;
   }
 
@@ -440,6 +440,7 @@ github.com style (c) Vasily Polovnyov <vast@whiteants.net>
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier,
       monospace;
     font-size: 12px;
+    -webkit-overflow-scrolling: touch;
   }
 
   .octicon {
