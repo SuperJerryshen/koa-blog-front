@@ -3,8 +3,9 @@ import { Form, Segment, Header, Icon } from 'semantic-ui-react';
 
 import { store, http } from '../../utils';
 import { TOKEN_KEY, USER_ID } from '../../utils/const';
+import { Page } from '../../components';
 
-class Login extends PureComponent {
+class SignIn extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -47,7 +48,7 @@ class Login extends PureComponent {
   render() {
     const { email, password } = this.state;
     return (
-      <div>
+      <Page title="用户登录">
         <Header as="h2" textAlign="center">
           <Header.Content content="用户登录" />
         </Header>
@@ -76,9 +77,9 @@ class Login extends PureComponent {
             <Form.Button color="blue" content="登录" fluid />
           </Form>
         </Segment>
-      </div>
+      </Page>
     );
   }
 }
 
-export default Login;
+export default SignIn;

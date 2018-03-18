@@ -12,6 +12,7 @@ import {
   Button,
   Modal,
   Loader,
+  Transition
 } from 'semantic-ui-react';
 
 import { Page } from '../../components';

@@ -11,37 +11,21 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      leftItems: [
-        {
-          as: Link,
-          content: '主页',
-          to: '/',
-          icon: 'home',
-          key: 'home',
-        },
-        // {
-        //   as: Link,
-        //   content: 'Welcome',
-        //   to: '/welcome',
-        //   icon: 'signing',
-        //   key: 'welcome',
-        // },
-      ],
+      leftItems: [],
       rightItems: [
         {
-          as: 'a',
-          content: 'Github',
-          href: 'https://github.com/SuperJerryshen',
-          icon: 'github',
-          key: 'github',
-          target: '_blank',
+          as: Link,
+          content: '注册',
+          icon: 'add user',
+          to: '/signup',
+          key: 'signup',
         },
         {
           as: Link,
           content: '登录',
           icon: 'user circle',
-          to: '/login',
-          key: 'login',
+          to: '/signin',
+          key: 'signin',
         },
       ],
     };
@@ -57,7 +41,6 @@ class App extends Component {
       if (success) {
         this.setState({
           rightItems: [
-            rightItems[0],
             {
               as: Link,
               content: data.nickname,
@@ -85,13 +68,7 @@ class App extends Component {
     return (
       <Router>
         <Navbar leftItems={leftItems} rightItems={rightItems}>
-          <Page
-            title="经纬天地"
-            style={{
-              paddingTop: '16px',
-              minHeight: document.body.offsetHeight - 61 + 'px',
-            }}
-          >
+          <Page title="经纬天地">
             <Routes />
             <Footer />
           </Page>

@@ -41,40 +41,19 @@ class Home extends Component {
             <Grid.Column computer={16} mobile={16}>
               <Item.Group divided>
                 {map(this.state.data, (item, index) => (
-                  <Item
-                    key={index}
-                    style={{
-                      position: 'relative',
-                    }}
-                  >
+                  <Item key={index}>
                     <Item.Content>
-                      <div
-                        style={{
-                          position: 'absolute',
-                          bottom: 20,
-                          right: 0,
-                        }}
-                      >
-                        <Label image size="medium">
-                          <img src={item.author.avatar} />
-                          <span
-                            style={{
-                              maxWidth: 64,
-                              overflow: 'hidden',
-                              display: 'inline-block',
-                            }}
-                          >
-                            {item.author.nickname}
-                          </span>
-                        </Label>
-                      </div>
                       <Item.Header as={Link} to={`/post/${item._id}`}>
                         {item.title}
                       </Item.Header>
                       <Item.Meta>
                         {new Date(item.created_time).toLocaleDateString()}
                       </Item.Meta>
-                      <Item.Description>
+                      <Item.Description
+                        style={{
+                          position: 'relative',
+                        }}
+                      >
                         <Label>
                           <Icon name="like" /> {item.stared_user.length}
                         </Label>
@@ -84,6 +63,26 @@ class Home extends Component {
                         <Label>
                           <Icon name="comment" /> {item.comment.length}
                         </Label>
+                        <div
+                          style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            right: 0,
+                          }}
+                        >
+                          <Label image size="medium">
+                            <img src={item.author.avatar} />
+                            <span
+                              style={{
+                                maxWidth: 64,
+                                overflow: 'hidden',
+                                display: 'inline-block',
+                              }}
+                            >
+                              {item.author.nickname}
+                            </span>
+                          </Label>
+                        </div>
                       </Item.Description>
                       <Item.Extra>{item.create_time}</Item.Extra>
                     </Item.Content>

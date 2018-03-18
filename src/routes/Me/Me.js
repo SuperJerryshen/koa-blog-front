@@ -9,6 +9,8 @@ import {
   Modal,
   Item,
 } from 'semantic-ui-react';
+
+import { Page } from '../../components';
 import http from '../../utils/http';
 import store from '../../utils/store';
 import { TOKEN_KEY } from '../../utils/const';
@@ -54,7 +56,7 @@ class Me extends PureComponent {
       return <Loader />;
     }
     return (
-      <div>
+      <Page title="我的信息">
         <Header as="h2" textAlign="center">
           <Header.Content content="我的信息" />
         </Header>
@@ -98,7 +100,7 @@ class Me extends PureComponent {
             />
           </Modal.Actions>
         </Modal>
-      </div>
+      </Page>
     );
   }
 }
