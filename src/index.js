@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import App from './App';
 
+import message from './components/Message';
+window.message = message;
+
 const render = Component => {
   ReactDOM.render(
     <AppContainer>

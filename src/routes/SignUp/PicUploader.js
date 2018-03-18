@@ -6,11 +6,13 @@ import {
   Dimmer,
   Loader,
   Segment,
+  Progress,
 } from 'semantic-ui-react';
 import * as qiniu from 'qiniu-js';
 
 import http from '../../utils/http';
 import { env } from '../../utils';
+import message from '../../components/Message';
 
 // const imgPrefix = env.dev
 //   ? 'http://p5s086uhv.bkt.clouddn.com'
@@ -21,6 +23,7 @@ class PicUploader extends Component {
   state = {
     tagVisible: true,
     uploading: false,
+    percent: 0,
   };
 
   handlePicUpload = file => {
@@ -29,7 +32,7 @@ class PicUploader extends Component {
     http.get('/utils/qiniu.token').then(res => {
       const { data, success } = res.data;
       if (!success) {
-        console.log('请求错误');
+        message.error(data.message);
       } else {
         qiniu
           .upload(file, `${new Date().valueOf()}/${file.name}`, data.token, {
@@ -38,10 +41,12 @@ class PicUploader extends Component {
           })
           .subscribe({
             next(res) {
-              console.log(res);
+              that.setState({
+                percent: parseInt(res.total.percent),
+              });
             },
             error(res) {
-              console.log(res);
+              message.error(res.message);
             },
             complete(res) {
               onChange(null, {
@@ -50,8 +55,10 @@ class PicUploader extends Component {
               });
               that.setState({
                 uploading: false,
+                percent: 0,
               });
               that.input.value = '';
+              message.success('上传头像成功');
             },
           });
       }
@@ -81,7 +88,7 @@ class PicUploader extends Component {
 
   render() {
     const { avatar } = this.props;
-    const { tagVisible, uploading } = this.state;
+    const { tagVisible, uploading, percent } = this.state;
     return (
       <div>
         <input
@@ -114,6 +121,11 @@ class PicUploader extends Component {
             }}
           />
         </Dimmer.Dimmable>
+        <Transition visible={uploading} animation="scale" duration={300}>
+          <Progress percent={percent} size="small" indicating>
+            {percent} %
+          </Progress>
+        </Transition>
         <Transition visible={tagVisible} animation="scale" duration={500}>
           <Label basic pointing>
             默认头像，点击上传

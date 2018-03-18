@@ -16,6 +16,7 @@ import { Page } from '../../components';
 import { http, store } from '../../utils';
 import { USER_ID, TOKEN_KEY } from '../../utils/const';
 import PicUploader from './PicUploader';
+import message from '../../components/Message';
 
 import avatar from '../../resources/avatar.jpg';
 
@@ -39,31 +40,30 @@ class SignUp extends Component {
   handleSubmit = () => {
     const { password, pwdConfirm, nickname, email, avatar } = this.state;
     const { history } = this.props;
-    if (password !== pwdConfirm || !nickname || !email || !avatar) {
-      console.log('验证失败');
-    } else {
-      this.setState({
-        loading: true,
-      });
-      http
-        .post('/user/signup', {
-          email,
-          nickname,
-          avatar,
-          password,
-        })
-        .then(res => {
-          this.setState({
-            loading: false,
-          });
-          const { success, data } = res.data;
-          if (success) {
-            store.set(TOKEN_KEY, data.token);
-            store.set(USER_ID, data.id);
-            location.replace('/');
-          }
+
+    this.setState({
+      loading: true,
+    });
+    http
+      .post('/user/signup', {
+        email,
+        nickname,
+        avatar,
+        password,
+      })
+      .then(res => {
+        this.setState({
+          loading: false,
         });
-    }
+        const { success, data } = res.data;
+        if (success) {
+          store.set(TOKEN_KEY, data.token);
+          store.set(USER_ID, data.id);
+          location.replace('/');
+        } else {
+          message.error(data.message);
+        }
+      });
   };
 
   isFormUnvalid = () => {
