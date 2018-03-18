@@ -60,7 +60,7 @@ class SignUp extends Component {
           if (success) {
             store.set(TOKEN_KEY, data.token);
             store.set(USER_ID, data.id);
-            history.replace('/');
+            location.replace('/');
           }
         });
     }

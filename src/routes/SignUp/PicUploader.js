@@ -63,10 +63,12 @@ class PicUploader extends Component {
   };
 
   handlePicPreview = e => {
+    const { onChange, name } = this.props;
     const reader = new FileReader();
     reader.addEventListener('load', () => {
-      this.setState({
-        img: reader.result,
+      onChange(null, {
+        name,
+        value: reader.result,
       });
     });
     reader.readAsDataURL(e.target.files[0]);
@@ -106,6 +108,10 @@ class PicUploader extends Component {
             onClick={this.handlePicClick}
             rounded
             src={avatar}
+            style={{
+              width: 150,
+              height: 150,
+            }}
           />
         </Dimmer.Dimmable>
         <Transition visible={tagVisible} animation="scale" duration={500}>
