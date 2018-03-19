@@ -55,7 +55,7 @@ class Home extends Component {
                         }}
                       >
                         <Label>
-                          <Icon name="like" /> {item.stared_user.length}
+                          <Icon name="like" /> {item.stared_users.length}
                         </Label>
                         <Label>
                           <Icon name="eye" /> {item.viewed_times}
@@ -74,7 +74,7 @@ class Home extends Component {
                             <img src={item.author.avatar} />
                             <span
                               style={{
-                                maxWidth: 64,
+                                maxWidth: 90,
                                 overflow: 'hidden',
                                 display: 'inline-block',
                               }}

@@ -21,14 +21,35 @@ class Notice extends Component {
     show: true,
   };
 
+  clearCloseTimer() {
+    this.closeTimer && clearTimeout(this.closeTimer);
+    this.closeTimer = null;
+  }
+
+  close(data) {
+    const { onClose } = this.props;
+    this.clearCloseTimer();
+    this.setState({
+      show: false,
+    });
+    this.timer = setTimeout(() => {
+      if (onClose) {
+        onClose(data);
+      }
+      clearTimeout(this.timer);
+      this.timer = null;
+    }, 500);
+  }
+
   componentDidMount() {
     const { data, onHide } = this.props;
-    setTimeout(() => {
-      this.setState({
-        show: false,
-      });
-      onHide(data);
-    }, data.interval * 1000);
+    this.closeTimer = setTimeout(() => {
+      this.close(data);
+    }, data.interval * 1000 + 500);
+  }
+
+  componentWillUnmount() {
+    this.clearCloseTimer();
   }
 
   render() {

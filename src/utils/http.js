@@ -10,7 +10,10 @@ axios.defaults.baseURL = dev
 
 // 设置请求验证 Authorization
 const token = store.get(TOKEN_KEY);
-token && (axios.defaults.headers.post['Authorization'] = token);
+if (token) {
+  axios.defaults.headers.post['Authorization'] = token;
+  axios.defaults.headers.get['Authorization'] = token;
+}
 
 // POST 请求 Content-Type
 axios.defaults.headers.post['Content-Type'] =

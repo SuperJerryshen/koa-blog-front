@@ -15,15 +15,17 @@ const states = {
 };
 
 let _setState;
-let destroyTimer;
 
 class Notification extends Component {
   state = {
     items: [],
   };
 
-  onHide = data => {
-    // states.items = states.items.filter(notice => notice.key !== data.key);
+  onClose = data => {
+    states.items = states.items.filter(notice => notice.key !== data.key);
+    if (states.items.length === 0) {
+      message.destroy();
+    }
   };
 
   componentWillMount() {
@@ -43,8 +45,8 @@ class Notification extends Component {
     const { items } = this.state;
     return (
       <div>
-        {map(items, (item, idx) => (
-          <Notice key={idx} data={item} onHide={this.onHide} />
+        {map(items, item => (
+          <Notice key={item.key} data={item} onClose={this.onClose} />
         ))}
       </div>
     );
@@ -74,11 +76,6 @@ class Message {
 
   show(item) {
     this.init();
-    // 如果销毁dom的定时器存在，则清空定时器
-    // if (destroyTimer) {
-    //   clearTimeout(destroyTimer);
-    //   destroyTimer = null;
-    // }
     item.key = new Date().valueOf();
     states.items = [...states.items, item];
   }
@@ -121,4 +118,6 @@ class Message {
   }
 }
 
-export default new Message();
+const message = new Message();
+
+export default message;
